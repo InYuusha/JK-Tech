@@ -5,15 +5,17 @@ JK TECH
 STEPS TO RUN
 1. npm install
 2. Add a .env file with the following conetent
+  ```
   MONGO_URL=mongodb://localhost:27017/jk-tech
   PORT=3000
   JWT_SECRET=my_secret
+```
 
 Base Route - https://localhost:3000
 
 1. User Routes
    - Signup 
-     POST {{url}}/user/signup
+     POST <a>{{url}}/user/signup</a>
      Body:
      ```json
      {
@@ -24,7 +26,7 @@ Base Route - https://localhost:3000
      }
      ```
    - Signin
-     POST {{url}}/user/signin
+     POST <a>{{url}}/user/signin</a>
      Body:
      ```json
      {
@@ -35,9 +37,10 @@ Base Route - https://localhost:3000
 
 2. Bucket Routes
    - List All Buckets
-     GET {{url}}/buckets
+     GET <a>{{url}}/buckets</a>
+     
    - Create Bucket
-     POST {{url}}/buckets
+     POST <a>{{url}}/buckets</a>
      Headers:
      ```
      {
@@ -51,7 +54,7 @@ Base Route - https://localhost:3000
      }
      ```
    - Delete Bucket
-     DELETE {{url}}/buckets/s3-bucket
+     DELETE <a>{{url}}/buckets/s3-bucket</a>
      Headers:
      ```
      {
@@ -61,7 +64,7 @@ Base Route - https://localhost:3000
 
 3. File Routes
    - List All Files in a Bucket
-     GET {{url}}/buckets/s3-bucket/files
+     GET <a>{{url}}/buckets/s3-bucket/files</a>
      Headers:
      ```
      {
@@ -69,7 +72,7 @@ Base Route - https://localhost:3000
      }
      ```
    - Upload a File
-     POST {{url}}/buckets/s3-bucket/file
+     POST <a>{{url}}/buckets/s3-bucket/file</a>
      Headers:
      ```
      {
@@ -78,7 +81,7 @@ Base Route - https://localhost:3000
      ```
      Body: form-data file
    - Get a File
-     GET {{url}}/buckets/my-bucket/file/lB76l6ofRm.jpeg
+     GET <a>{{url}}/buckets/my-bucket/file/lB76l6ofRm.jpeg</a>
      Headers:
      ```
      {
@@ -86,7 +89,7 @@ Base Route - https://localhost:3000
      }
      ```
    - Delete a File
-     DELETE {{url}}/buckets/my-bucket/file/lB76l6ofRm.jpeg
+     DELETE <a>{{url}}/buckets/my-bucket/file/lB76l6ofRm.jpeg</a>
      Headers:
      ```
      {
