@@ -39,8 +39,6 @@ exports.createBucket = async (req, res) => {
   }
 };
 
-
-
 exports.deleteBucket = async (req, res) => {
   try {
     const { bucketId } = req.params;
