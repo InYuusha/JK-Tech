@@ -15,7 +15,7 @@ Base Route - https://localhost:3000
 
 1. User Routes
    - Signup 
-     POST <a>{{url}}/user/signup</a>
+     POST <i>{{url}}/user/signup</i>
      Body:
      ```json
      {
@@ -26,7 +26,7 @@ Base Route - https://localhost:3000
      }
      ```
    - Signin
-     POST <a>{{url}}/user/signin</a>
+     POST <i>{{url}}/user/signin</i>
      Body:
      ```json
      {
@@ -37,10 +37,10 @@ Base Route - https://localhost:3000
 
 2. Bucket Routes
    - List All Buckets
-     GET <a>{{url}}/buckets</a>
+     GET <i>{{url}}/buckets</i>
      
    - Create Bucket
-     POST <a>{{url}}/buckets</a>
+     POST <i>{{url}}/buckets</i>
      Headers:
      ```
      {
@@ -54,7 +54,7 @@ Base Route - https://localhost:3000
      }
      ```
    - Delete Bucket
-     DELETE <a>{{url}}/buckets/s3-bucket</a>
+     DELETE <i>{{url}}/buckets/s3-bucket</i>
      Headers:
      ```
      {
@@ -64,7 +64,7 @@ Base Route - https://localhost:3000
 
 3. File Routes
    - List All Files in a Bucket
-     GET <a>{{url}}/buckets/s3-bucket/files</a>
+     GET <i>{{url}}/buckets/s3-bucket/files</i>
      Headers:
      ```
      {
@@ -72,7 +72,7 @@ Base Route - https://localhost:3000
      }
      ```
    - Upload a File
-     POST <a>{{url}}/buckets/s3-bucket/file</a>
+     POST <i>{{url}}/buckets/s3-bucket/file</i>
      Headers:
      ```
      {
@@ -81,7 +81,7 @@ Base Route - https://localhost:3000
      ```
      Body: form-data file
    - Get a File
-     GET <a>{{url}}/buckets/my-bucket/file/lB76l6ofRm.jpeg</a>
+     GET <i>{{url}}/buckets/my-bucket/file/lB76l6ofRm.jpeg</i>
      Headers:
      ```
      {
@@ -89,7 +89,7 @@ Base Route - https://localhost:3000
      }
      ```
    - Delete a File
-     DELETE <a>{{url}}/buckets/my-bucket/file/lB76l6ofRm.jpeg</a>
+     DELETE <i>{{url}}/buckets/my-bucket/file/lB76l6ofRm.jpeg</i>
      Headers:
      ```
      {
