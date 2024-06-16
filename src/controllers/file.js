@@ -35,7 +35,7 @@ exports.uploadFile = async (req, res) => {
       data: uploadedFile,
     });
   } catch (error) {
-    return res.json({
+    return res.status(error.statusCode || 500).json({
       message: `Failed to Uplaod File: ${error.message}`,
     });
   }
@@ -49,9 +49,8 @@ exports.streamFile = (req, res) => {
     } = req;
     streamFile(userId, bucketId, fileName, res);
   } catch (error) {
-    return res.json({
+    return res.status(error.statusCode || 500).json({
       message: `Failed to fetch file ${error.message}`,
-      statusCode: error.statusCode || 500,
     });
   }
 };
@@ -72,9 +71,8 @@ exports.streamAllFilesInBucket = async (req, res) => {
       data: files,
     });
   } catch (error) {
-    return res.json({
+    return res.status(error.statusCode || 500).json({
       message: `Failed to fetch files ${error.message}`,
-      statusCode: error.statusCode || 500,
     });
   }
 };
@@ -92,14 +90,12 @@ exports.deleteFile = async (req, res) => {
         fileName,
       }),
     ]);
-    return res.json({
+    return res.status(200).json({
       message: "Successfully deleted file",
-      statusCode: 204,
     });
   } catch (error) {
-    return res.json({
+    return res.status(error.statusCode || 500).json({
       message: `Failed to Delete File ${error.message}`,
-      statuCode: error.statusCode || 500,
     });
   }
 };

@@ -22,7 +22,7 @@ exports.createBucket = async (req, res) => {
     validateBucketName(bucketName);
 
     const bucket = await getBucket({ userId, bucketId: bucketName });
-    if (bucket) throw new CustomError("Bucket Already Exists ", 400);
+    if (bucket) throw new CustomError("Bucket Already Exists ", 403);
 
     await Promise.all([
       createBucket({ userId, bucketName }),
@@ -33,9 +33,8 @@ exports.createBucket = async (req, res) => {
       message: "Successfully created bucket",
     });
   } catch (error) {
-    return res.json({
+    return res.status(error.statusCode || 500).json({
       message: error.message,
-      statusCode: error.statusCode || 500,
     });
   }
 };
@@ -56,9 +55,8 @@ exports.deleteBucket = async (req, res) => {
       message: "Successfylly deleted bucket",
     });
   } catch (error) {
-    return res.json({
+    return res.status(error.statusCode || 500).json({
       message: `Failed to delete bucket ${error.message}`,
-      statusCode: error.statusCode || 500,
     });
   }
 };
@@ -74,9 +72,8 @@ exports.listBuckets = async (req, res) => {
       data: buckets,
     });
   } catch (error) {
-    return res.json({
+    return res.status(error.statusCode || 500).json({
       message: `Failed to fetch buckets ${error.message}`,
-      statusCode: error.statusCode || 500,
     });
   }
 };

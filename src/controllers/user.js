@@ -21,9 +21,8 @@ exports.signup = async (req, res) => {
     await user.save();
     res.status(201).json({ message: "Successfully Created user" });
   } catch (error) {
-    res.json({
+    res.status(error.statusCode || 500).json({
       message: error.message,
-      statusCode: error.statusCode || 500,
     });
   }
 };
@@ -45,9 +44,8 @@ exports.signin = async (req, res) => {
     const token = generateToken({ userId: user._id });
     res.status(200).json({ token });
   } catch (error) {
-    res.json({
+    res.status(error.statusCode || 500).json({
       message: error.message,
-      statusCode: error.statusCode || 500,
     });
   }
 };
