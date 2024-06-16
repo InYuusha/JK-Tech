@@ -11,7 +11,8 @@ const id = new Uid({ length: 10 })
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const bucketPath = path.join(BUCKETS_DIR, req.params.bucketId);
+    const {user:{userId}, params: {bucketId}} = req;
+    const bucketPath = path.join(BUCKETS_DIR, userId, bucketId);
     if (!fs.pathExistsSync(bucketPath))
       cb(new CustomError('Bucket not found', 404))
     cb(null, bucketPath);

@@ -1,13 +1,20 @@
-const {createBucket, deleteBucket, listBuckets} = require('../services/bucket');
-const { validateBucketName } = require('../utils/validations');
+const {createBucketMeta, deleteBucket, listBuckets, deleteBucketMeta, createBucket, getBucket} = require('../services/bucket');
+const { CustomError } = require('../utils/error_handling');
+const {  validateBucketName } = require('../utils/validations');
 
 exports.createBucket = async(req, res) => {
  try{
   const {name:bucketName} = req.body
+  const {user: {userId}} = req;
   
   // validate bucket name
   validateBucketName(bucketName)
-  await createBucket(bucketName)
+
+  const bucket = await getBucket({userId, bucketId: bucketName})
+  if (bucket) throw new CustomError('Bucket Already Exists ', 400)
+
+  await createBucket({userId, bucketName})
+  await createBucketMeta({userId, bucketName})
 
   return res.status(201).json({
     message: 'Successfully created bucket'
@@ -24,8 +31,11 @@ exports.createBucket = async(req, res) => {
 exports.deleteBucket = async(req, res) => {
  try{
   const {bucketId} = req.params;
-  await deleteBucket(bucketId)
-  return res.status(204).json({
+  const {user: {userId}} = req;
+
+  await deleteBucket({userId, bucketId})
+  await deleteBucketMeta({userId, bucketId})
+  return res.status(200).json({
     message: 'Successfylly delete bucket'
   })
  }catch(error){
@@ -39,7 +49,8 @@ exports.deleteBucket = async(req, res) => {
 
 exports.listBuckets = async(req, res) => {
  try{
-  const buckets = await listBuckets();
+  const {user: {userId}} = req;
+  const buckets = await listBuckets({userId});
   return res.status(200).json({
     message: 'Successfully fetched buckets',
     data: buckets

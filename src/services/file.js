@@ -2,12 +2,13 @@ const fs = require("fs-extra");
 const path = require("path");
 const mime = require('mime-types');
 const MultiStream = require('multistream');
+const FileMeta = require('../models/file')
 const { BUCKETS_DIR } = require("../config");
 const { CustomError } = require("../utils/error_handling");
 
-exports.uploadFile = async (bucketId, file) => {
+exports.uploadFile = async (userId, bucketId, file) => {
 
-    const bucketPath = path.join(BUCKETS_DIR, bucketId)
+    const bucketPath = path.join(BUCKETS_DIR, userId, bucketId)
 
     if (!await fs.pathExists(bucketPath)) throw new Error('Bucket not found');
 
@@ -18,27 +19,44 @@ exports.uploadFile = async (bucketId, file) => {
         bucketId,
     }
 }
+exports.createFileMeta = async ({
+  userId,
+  bucketId,
+  fileName,
+  mimeType,
+  size
+}) => {
+  try{
+    const fileMeta = new FileMeta({
+      userId,
+      bucketId,
+      fileName,
+      mimeType,
+      size
+    })
+    await fileMeta.save()
+    return fileMeta;
+  }catch(error) {
+    console.log(`Failed to create file meta ${error.message}`)
+    throw new CustomError('Failed to create file meta ', 500)
+  }
+}
 
-exports.streamAllFilesInBucket = async (bucketId, res) => {
+exports.listFilesInBucket = async (userId, bucketId, res) => {
   try {
-    const bucketPath = path.join(BUCKETS_DIR, bucketId);
-    const files = fs.readdirSync(bucketPath).map(fileName => path.join(bucketPath, fileName));
-
-    const streams = files.map(filePath => fs.createReadStream(filePath));
-    const multiStream = new MultiStream(streams);
-
-    res.setHeader('Content-Type', 'application/octet-stream');
-    multiStream.pipe(res);
-
-    multiStream.on('error', (err) => {
-      res.status(500).send('Internal Server Error');
-    });
+    const files = await FileMeta.find({
+      userId,
+      bucketId
+    })
+    return files;
   } catch (error) {
     throw new Error(error.message);
   }
 };
-exports.streamFile = (bucketId, fileName, res) => {
-    const filePath = path.join(BUCKETS_DIR, bucketId, fileName);
+exports.streamFile = (userId, bucketId, fileName, res) => {
+    console.log("UserId ", userId)
+    const filePath = path.join(BUCKETS_DIR, userId, bucketId, fileName);
+    console.log("File Path ", filePath)
 
     if (!fs.existsSync(filePath)) {
       throw new CustomError('File not found ', 404);
@@ -56,8 +74,8 @@ exports.streamFile = (bucketId, fileName, res) => {
   readStream.pipe(res);
 }
 
-exports.deleteFile = async (bucketId, fileName) => {
-  const filePath = path.join(BUCKETS_DIR, bucketId, fileName);
+exports.deleteFile = async (userId, bucketId, fileName) => {
+  const filePath = path.join(BUCKETS_DIR, userId, bucketId, fileName);
 
   // Check if the file exists
   if (!fs.existsSync(filePath)) {
@@ -67,6 +85,18 @@ exports.deleteFile = async (bucketId, fileName) => {
   fs.unlinkSync(filePath);
   return;
 };
+exports.deleteFileMeta = async ({
+  bucketId, fileName
+}) => {
+  try{
+    await FileMeta.findOneAndDelete({
+      bucketId,
+      fileName,
+    })
+  }catch(error){
+    throw new CustomError('Failed to delete filemeta', 500)
+  }
+}
 
 const getMimeType = (fileId) => {
   // Extract the file extension
