@@ -44,6 +44,8 @@ exports.deleteBucketMeta = async ({ userId, bucketId }) => {
     throw new CustomError("Filed to delete bucket metadeta", 500);
   }
 };
+
+
 exports.getBucket = async ({ userId, bucketId }) => {
   try {
     const bucket = await Bucket.findOne({

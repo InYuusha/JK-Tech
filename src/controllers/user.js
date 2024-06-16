@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const { createUser } = require("../services/user");
 const { generateToken } = require("../utils/auth");
 const { CustomError, AuthenticationError } = require("../utils/error_handling");
 
@@ -10,15 +11,13 @@ exports.signup = async (req, res) => {
     if (user) {
       throw new CustomError("User Already Exists ", 400);
     }
-
-    user = new User({
+    await createUser({
       firstname,
       lastname,
       email,
       password,
     });
 
-    await user.save();
     res.status(201).json({ message: "Successfully Created user" });
   } catch (error) {
     res.status(error.statusCode || 500).json({
@@ -35,7 +34,6 @@ exports.signin = async (req, res) => {
     if (!user) {
       throw new CustomError("User not found", 404);
     }
-
     const isMatch = await user.isValidPassword(password);
 
     if (!isMatch) {

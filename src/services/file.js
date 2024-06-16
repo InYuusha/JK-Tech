@@ -41,7 +41,7 @@ exports.createFileMeta = async ({
   }
 };
 
-exports.listFilesInBucket = async (userId, bucketId, res) => {
+exports.listFilesInBucket = async ({userId, bucketId}) => {
   try {
     const files = await FileMeta.find({
       userId,
@@ -52,10 +52,8 @@ exports.listFilesInBucket = async (userId, bucketId, res) => {
     throw new Error(error.message);
   }
 };
-exports.streamFile = (userId, bucketId, fileName, res) => {
-  console.log("UserId ", userId);
+exports.streamFile = ({userId, bucketId, fileName, res}) => {
   const filePath = path.join(BUCKETS_DIR, userId, bucketId, fileName);
-  console.log("File Path ", filePath);
 
   if (!fs.existsSync(filePath)) {
     throw new CustomError("File not found ", 404);
@@ -73,7 +71,7 @@ exports.streamFile = (userId, bucketId, fileName, res) => {
   readStream.pipe(res);
 };
 
-exports.deleteFile = async (userId, bucketId, fileName) => {
+exports.deleteFile = async ({userId, bucketId, fileName}) => {
   const filePath = path.join(BUCKETS_DIR, userId, bucketId, fileName);
 
   // Check if the file exists

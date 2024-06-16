@@ -47,7 +47,7 @@ exports.streamFile = (req, res) => {
     const {
       user: { userId },
     } = req;
-    streamFile(userId, bucketId, fileName, res);
+    streamFile({userId, bucketId, fileName, res});
   } catch (error) {
     return res.status(error.statusCode || 500).json({
       message: `Failed to fetch file ${error.message}`,
@@ -65,7 +65,7 @@ exports.streamAllFilesInBucket = async (req, res) => {
 
     if (!bucket) throw new CustomError("Bucket not found ", 404);
 
-    const files = await listFilesInBucket(userId, bucketId, res);
+    const files = await listFilesInBucket({userId, bucketId});
     return res.status(200).json({
       message: "Successfully feched files",
       data: files,
@@ -84,7 +84,7 @@ exports.deleteFile = async (req, res) => {
     } = req;
     const { bucketId, fileName } = req.params;
     await Promise.all([
-      deleteFile(userId, bucketId, fileName),
+      deleteFile({userId, bucketId, fileName}),
       deleteFileMeta({
         bucketId,
         fileName,
