@@ -36,10 +36,10 @@ Base Route - https://localhost:3000
      ```
 
 2. Bucket Routes
-   - List All Buckets
+   - <b>List All Buckets</b>
      GET <i>{{url}}/buckets</i>
      
-   - Create Bucket
+   - <b>Create Bucket</b>
      POST <i>{{url}}/buckets</i>
      Headers:
      ```
@@ -53,7 +53,7 @@ Base Route - https://localhost:3000
          "name": "s3-bucket"
      }
      ```
-   - Delete Bucket
+   - <b>Delete Bucket</b>
      DELETE <i>{{url}}/buckets/s3-bucket</i>
      Headers:
      ```
@@ -63,7 +63,7 @@ Base Route - https://localhost:3000
      ```
 
 3. File Routes
-   - List All Files in a Bucket
+   - <b>List All Files in a Bucket</b>
      GET <i>{{url}}/buckets/s3-bucket/files</i>
      Headers:
      ```
@@ -71,7 +71,7 @@ Base Route - https://localhost:3000
          Authorization: Bearer {{token}}
      }
      ```
-   - Upload a File
+   - <b>Upload a File</b>
      POST <i>{{url}}/buckets/s3-bucket/file</i>
      Headers:
      ```
@@ -80,7 +80,7 @@ Base Route - https://localhost:3000
      }
      ```
      Body: form-data file
-   - Get a File
+   - <b>Get a File</b>
      GET <i>{{url}}/buckets/my-bucket/file/lB76l6ofRm.jpeg</i>
      Headers:
      ```
@@ -88,7 +88,7 @@ Base Route - https://localhost:3000
          Authorization: Bearer {{token}}
      }
      ```
-   - Delete a File
+   - <b>Delete a File</b>
      DELETE <i>{{url}}/buckets/my-bucket/file/lB76l6ofRm.jpeg</i>
      Headers:
      ```
