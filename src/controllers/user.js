@@ -2,6 +2,7 @@ const User = require("../models/user");
 const { createUser } = require("../services/user");
 const { generateToken } = require("../utils/auth");
 const { CustomError, AuthenticationError } = require("../utils/error_handling");
+const { validateSignupInputs } = require("../utils/validations");
 
 exports.signup = async (req, res) => {
   try {
@@ -11,6 +12,12 @@ exports.signup = async (req, res) => {
     if (user) {
       throw new CustomError("User Already Exists ", 400);
     }
+    validateSignupInputs({
+      firstname,
+      lastname,
+      email,
+      password,
+    });
     await createUser({
       firstname,
       lastname,
