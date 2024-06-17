@@ -10,6 +10,7 @@ STEPS TO RUN
   PORT=3000
   JWT_SECRET=my_secret
 ```
+3. node server.js
 
 Base Route - https://localhost:3000
 
