@@ -99,7 +99,7 @@ Base Route - https://localhost:3000
      }
      ```
 ```
-filename eg - lB76l6ofRm.jpeg
+filename eg - lB76l6ofRm.jpeg (you get it while listing files in a bucket)
 bucketname eg - my-bucket (used same validations as s3 bucket)
 ```
 Edge Cases 
