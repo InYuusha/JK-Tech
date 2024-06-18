@@ -40,6 +40,11 @@ Base Route - https://localhost:3000
 2. Bucket Routes
    - <b>List All Buckets</b>
      GET <i>{{url}}/buckets</i>
+     ```
+     {
+         Authorization: Bearer {{token}}
+     }
+     ```
      
    - <b>Create Bucket</b>
      POST <i>{{url}}/buckets</i>
