@@ -98,8 +98,10 @@ Base Route - https://localhost:3000
          Authorization: Bearer {{token}}
      }
      ```
+```
 filename eg - lB76l6ofRm.jpeg
 bucketname eg - my-bucket (used same validations as s3 bucket)
+```
 Edge Cases 
 - When a Bucket Deleted, all files and their metadata are deleted as well
 
