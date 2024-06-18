@@ -106,3 +106,7 @@ eg  request - {{url}}/buckets/my-bucket/file/5Mtlkrcb4j.pdf
 Edge Cases 
 - When a Bucket Deleted, all files and their metadata are deleted as well
 
+<b>Working</b>
+<p>The files are stored in the project directory itself (as mentioned) if the userId is user1 and the bucket name is my-bucket the files is stored such as buckets > user1 > my-bucket > files.txt</p>
+<p>The metadeta for the bucket and files are being stored in Mongodb. Apart fromt that user credentials are also being in stored in MongoDB</p>
+
