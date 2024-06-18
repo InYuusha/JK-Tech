@@ -4,7 +4,8 @@ JK TECH
 
 STEPS TO RUN
 1. npm install
-2. Add a .env file with the following conetent
+2. Make sure you have MongoDB setup
+3. Add a .env file with the following conetent
   ```
   MONGO_URL=mongodb://localhost:27017/jk-tech
   PORT=3000
@@ -55,7 +56,7 @@ Base Route - https://localhost:3000
      }
      ```
    - <b>Delete Bucket</b>
-     DELETE <i>{{url}}/buckets/s3-bucket</i>
+     DELETE <i>{{url}}/buckets/:bucketName</i>
      Headers:
      ```
      {
@@ -65,7 +66,7 @@ Base Route - https://localhost:3000
 
 3. File Routes
    - <b>List All Files in a Bucket</b>
-     GET <i>{{url}}/buckets/s3-bucket/files</i>
+     GET <i>{{url}}/buckets/:bucketName/files</i>
      Headers:
      ```
      {
@@ -73,7 +74,7 @@ Base Route - https://localhost:3000
      }
      ```
    - <b>Upload a File</b>
-     POST <i>{{url}}/buckets/s3-bucket/file</i>
+     POST <i>{{url}}/buckets/:bucketName/file</i>
      Headers:
      ```
      {
@@ -82,7 +83,7 @@ Base Route - https://localhost:3000
      ```
      Body: form-data file
    - <b>Get a File</b>
-     GET <i>{{url}}/buckets/my-bucket/file/lB76l6ofRm.jpeg</i>
+     GET <i>{{url}}/buckets/:bucketName/file/:fileName</i>
      Headers:
      ```
      {
@@ -90,14 +91,15 @@ Base Route - https://localhost:3000
      }
      ```
    - <b>Delete a File</b>
-     DELETE <i>{{url}}/buckets/my-bucket/file/lB76l6ofRm.jpeg</i>
+     DELETE <i>{{url}}/buckets/:bucketName/file/:fileName</i>
      Headers:
      ```
      {
          Authorization: Bearer {{token}}
      }
      ```
-
+filename eg - lB76l6ofRm.jpeg
+bucketname eg - my-bucket (used same validations as s3 bucket)
 Edge Cases 
 - When a Bucket Deleted, all files and their metadata are deleted as well
 
