@@ -101,6 +101,7 @@ Base Route - https://localhost:3000
 ```
 filename eg - lB76l6ofRm.jpeg (you get it while listing files in a bucket)
 bucketname eg - my-bucket (used same validations as s3 bucket)
+eg  request - {{url}}/buckets/my-bucket/file/5Mtlkrcb4j.pdf
 ```
 Edge Cases 
 - When a Bucket Deleted, all files and their metadata are deleted as well
